@@ -24,6 +24,7 @@ public class Goblin : MonoBehaviour, IExplodingElement, IClickable
         if (destroyedGoblin != null)
             Instantiate(destroyedGoblin, transform.position, Quaternion.identity);
 
+        BombsAndGoblinsTracker.Instance.AddPenaltyOnDeath();
         Destroy(gameObject);
     }
 

@@ -19,6 +19,9 @@ public class UIHandler : Singleton<UIHandler>
     [SerializeField]
     TextMeshProUGUI scoreGnomes, scoreBombs, score;
 
+    private int timer;
+
+
     private void Start()
     {
         BombsAndGoblinsTracker.Instance.OutOfBombs += OnEnd;
@@ -28,6 +31,8 @@ public class UIHandler : Singleton<UIHandler>
         gameObject.SetActive(true);
         scoreSection.SetActive(false);
         UpdateGoblinUI(0, BombsAndGoblinsTracker.Instance.TotalGoblins);
+
+        timer = 0;
     }
 
     private void OnGoblinAdded()
@@ -38,6 +43,9 @@ public class UIHandler : Singleton<UIHandler>
     private void OnEnd()
     {
         var bombs = GameObject.FindObjectsOfType<Bomb>();
+
+        timer = (int)Time.timeSinceLevelLoad;
+        Score.Instance.Add(60 - timer);
 
         ShowFinalScore(BombsAndGoblinsTracker.Instance.CollectedGoblins, BombsAndGoblinsTracker.Instance.TotalGoblins, bombs.Length, Score.Instance.Amount);
     }
@@ -80,7 +88,7 @@ public class UIHandler : Singleton<UIHandler>
         }
     }
 
-    public void ShowFinalScore(int gnomesCollected, int gnomesMax, int bombsLeft, int scoreFinal)
+    public void ShowFinalScore(int gnomesCollected, int gnomesMax, int bombsLeft, int scoreFinal) // TODO: ROUND FINAL SCORE TO END IN 0  %10??
     {
         scoreSection.SetActive(true);
         scoreGnomes.text = gnomesCollected + " / " + gnomesMax + " Gnomes saved";

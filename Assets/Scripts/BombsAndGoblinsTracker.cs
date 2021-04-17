@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class BombsAndGoblinsTracker : Singleton<BombsAndGoblinsTracker>
 {
     [SerializeField] int scorePerGoblin;
+    [SerializeField] int penaltyPerDeadGoblin;
+
 
     int goblinsCollected;
     int totalGoblins;
@@ -43,6 +45,15 @@ public class BombsAndGoblinsTracker : Singleton<BombsAndGoblinsTracker>
             CollectedAllGoblins?.Invoke();
         }
 
+    }
+
+    public void AddPenaltyOnDeath()
+    {
+        if (Instance == null)
+        {
+            return;
+        }
+        Score.Instance.Add(Instance.penaltyPerDeadGoblin);
     }
 
     public void RemoveBomb()

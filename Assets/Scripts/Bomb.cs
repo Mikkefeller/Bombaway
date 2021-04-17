@@ -12,7 +12,7 @@ public class Bomb : MonoBehaviour, IExplodingElement, IPickupable
     [SerializeField] float pointLightRadiusIn, pointLightRadiusOut;
     [SerializeField] GameObject explosionPrefab;
     [SerializeField] float explosionForce;
-    [SerializeField] int scorePerExplosion;
+    [SerializeField] int scorePerExplosion = 100;
 
     private bool triggered, exploded;
     private float triggerTime;
